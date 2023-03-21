@@ -19,8 +19,8 @@ const schemaCommand = null
 response.Schemas.map( async (schema) => {
   const schemaParams = {
     SchemaId: {
-      RegistryName: 'staging-clickstreams',
-      SchemaName: schema.SchemaArn,
+      RegistryName: registryName,
+      SchemaName: schema.SchemaName,
     },
   };
   schemaCommand = new GetSchemaCommand(schemaParams);
