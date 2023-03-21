@@ -1,7 +1,6 @@
 import { FromSchema } from "json-schema-to-ts";
 import * as fs from "fs";
 
-
 const dogSchema = {
   type: "object",
   properties: {
@@ -11,19 +10,20 @@ const dogSchema = {
     favoriteFood: { enum: ["pizza", "taco", "fries"] },
   },
   required: ["name", "age"],
-} ;
+} as const;
 
 type Dog = FromSchema<typeof dogSchema>;
-
-const content: Dog = {
-  name: 'a',
-  age: 'o',
-  hobbies: ['al'],
-  favoriteFood: 'pizz'
-};
-
-fs.appendFile("dos.log", content, (err) => {
-  if (err) {
-    console.error(err);
-  }
-});
+const prueba: Dog = {
+  name: '30',
+  age: 55,
+  hobbies: ['otro'],
+  favoriteFood: 'pizza'
+}
+console.log(typeof prueba)
+console.log(prueba)
+//console.log(Dog)
+// fs.appendFile("dos.log", Dog, (err) => {
+//   if (err) {
+//     console.error(err);
+//   }
+// });
