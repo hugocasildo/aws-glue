@@ -1,8 +1,23 @@
-import { GlueClient, ListSchemasCommand } from '@aws-sdk/client-glue';
+import {
+  GlueClient,
+  ListSchemasCommand,
+  GetSchemaCommand,
+} from "@aws-sdk/client-glue";
 
-const registryName = 'staging-clickstreams';
+const registryName = "staging-clickstreams";
 
-const client = new GlueClient({ region: 'us-east-2' });
+const clientConfig = {
+  region: "us-east-2",
+  credentials: {
+    accessKeyId: "",
+    secretAccessKey: "",
+    sessionToken:
+      "",
+  },
+};
+
+const client = new GlueClient(clientConfig);
+
 const input = {
   RegistryId: {
     RegistryName: registryName,
@@ -11,12 +26,9 @@ const input = {
 const command = new ListSchemasCommand(input);
 const response = await client.send(command);
 
-console.log('ListSchemasCommand', response);
-console.log('End ListSchemasCommand --------------');
+const schemaCommand = null;
 
-const schemaCommand = null
-
-response.Schemas.map( async (schema) => {
+response.Schemas.map(async (schema) => {
   const schemaParams = {
     SchemaId: {
       RegistryName: registryName,
@@ -24,7 +36,7 @@ response.Schemas.map( async (schema) => {
     },
   };
   schemaCommand = new GetSchemaCommand(schemaParams);
-  const commandResponse = await client.send(command)
-  console.log('commandResponse', commandResponse);
+  const commandResponse = await client.send(command);
+  console.log("commandResponse", commandResponse);
   return commandResponse;
-})
+});
